@@ -1,0 +1,26 @@
+FUNCTION_BLOCK MC_GearIn (*commands a ratio between the velocity of the master and slave axes*)
+    VAR_INPUT
+        Master : REFERENCE TO McAxisType; (*master axis reference*)
+        Slave : REFERENCE TO McAxisType; (*slave axis reference*)
+        Execute : BOOL; (*execution of this FB is started on rising edge of the input*)
+		RatioNumerator : DINT; (*gear ratio numerator*)
+		RatioDenominator : DINT; (*gear ratio denominator*)
+		MasterValueSource : McValueSrcEnum; (*defines the source for synchronization*)
+		Acceleration : REAL; (*maximum acceleration for gearing in*)
+		Deceleration : REAL; (*maximum deceleration for gearing in*)
+		Jerk : REAL; (*maximum jerk for gearing in*)
+		BufferMode : McBufferModeEnum; (*defines the chronological sequence of FB*)
+		AdvancedParameters : McAdvGearInParType; (*structure for using additional functions*)
+	END_VAR
+	VAR_OUTPUT
+		InGear : BOOL; (*commanded gearing complete*)
+		Busy : BOOL; (*function block is not finished*)
+		Active : BOOL; (*FB has control over the axis*)
+		CommandAborted : BOOL; (*function block is aborted by another command*)
+		Error : BOOL; (*error occurred during operation*)
+        ErrorID : DINT; (*error number*)
+	END_VAR
+    VAR
+        Internal : McInternalTwoRefType; (*internal variable*)
+    END_VAR
+END_FUNCTION_BLOCK
